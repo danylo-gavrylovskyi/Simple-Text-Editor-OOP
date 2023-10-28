@@ -1,7 +1,7 @@
 #include "FileHandler.h"
 
 void FileHandler::saveTextToFile(const char* fileName, const char* text) {
-    FILE* file = fopen(fileName, "a");
+    FILE* file = fopen(fileName, "w");
     if (file != NULL) {
         fputs(text, file);
         fclose(file);
@@ -17,8 +17,8 @@ void FileHandler::loadTextFromFile(const char* fileName, char** buffer) {
     if (file != NULL) {
         char fileText[100];
         while (fgets(fileText, sizeof(fileText), file) != NULL) {
-            *buffer = (char*)realloc(*buffer, strlen(*buffer) + strlen(fileText) + 1);
-            strcat(*buffer, fileText);
+            *buffer = (char*)realloc(*buffer, strlen(fileText) + 1);
+            strcpy(*buffer, fileText);
         }
         fclose(file);
         printf("\nText has been loaded successfully");
